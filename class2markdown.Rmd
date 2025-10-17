@@ -1,0 +1,142 @@
+---
+title: "class2"
+output: html_document
+date: "2025-10-10"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Import plain text files in R
+
+Make use of the *scan* function, to read the entire text into our codes, automatically detecting the data types.
+
+```{r}
+nile <- scan("/Users/priyashrinarendran/Desktop/Priya/R_studio/02 codes pack 2/nile.txt")
+```
+file.exists("/Users/priyashrinarendran/Desktop/Priya/R_studio/02 codes pack 2/nile.txt")
+
+Check the data type in variable *nile*
+
+```{r}
+typeof(nile)
+```
+#Plot histogram
+
+```{r}
+hist(nile)
+```
+
+Read data from *nile.txt* store each data as "character" type 
+
+```{r}
+nile_char <- scan("/Users/priyashrinarendran/Desktop/Priya/R_studio/02 codes pack 2/nile.txt", what = character())
+nile_char
+```
+
+Check the data type in *nile_char*
+```{r}
+typeof(nile_char)
+```
+
+Read in plain text data separated by *;* for each data, by specifying the value for arguement *sep*
+
+```{r}
+sunset_sem<-scan("/Users/priyashrinarendran/Desktop/Priya/R_studio/02 codes pack 2/sunset-salvo.txt", what=character(), sep=";")
+sunset_sem
+sunset <- scan("/Users/priyashrinarendran/Desktop/Priya/R_studio/02 codes pack 2/sunset-salvo.txt",
+what=character())
+sunset
+```
+
+## Reading text data of different format
+
+reading data with different data types
+skip the 1st line
+
+```{r}
+running_lst <- scan("/Users/priyashrinarendran/Desktop/PRIYA/R_studio/02 codes pack 2/running_dat.tsv", what =list("",1.0,1.0,1.0,1.0,1.0,1.0),sep="\t", skip=1)
+running_lst
+```
+
+# Export plain text files in R 
+
+Output *sunset* data with "&" as separator 
+```{r}
+cat(sunset, file="sunset-salvo-amp.txt", sep="&")
+```
+
+## Import Delimeter-sepaarated values files in R
+
+Read in structured data files, into R program as a table (*data frames*), automatically detect the data types for each variable/field.
+
+```{r}
+running_tbl <-read.table("/Users/priyashrinarendran/Desktop/PRIYA/R_studio/02 codes pack 2/running_dat.tsv", header=TRUE, sep="\t")
+running_tbl
+```
+
+Show the struture of the table/data frame, also to show the data types for each variables 
+
+```{r}
+str(running_tbl)
+```
+
+###reading csv files in R
+
+Read csv files into R program as sata frame.
+*read.csv* read comma separated values, with "." as decimal point
+*read.csv2* read semicolon separated values, with "," as decimal point
+
+```{r}
+running_df <- read.csv("/Users/priyashrinarendran/Desktop/PRIYA/R_studio/02 codes pack 2/running_dat.csv")
+running_df
+```
+
+##export data frames in R
+
+export data frames / table to a delimeter -separated values file. 
+example, use "%" as separator
+```{r}
+write.table(running_df, file = "running_star.txt", sep = "%", dec="*")
+```
+```{r}
+readLines("/Users/priyashrinarendran/Desktop/PRIYA/R_studio/02 codes pack 2/running_dat.csv")
+```
+
+## import XML in R 
+
+```{r}
+install.packages("xml2")
+library("xml2")
+```
+
+Read data from HML into R as a tree hierarchial structure 
+```{r}
+stats_people <- read_xml("/Users/priyashrinarendran/Desktop/PRIYA/R_studio/02 codes pack 2/statisticians.xml")
+stats_people
+```
+
+## Read XML as table 
+
+Read XML files into R, store it as a data frame/table 
+
+```{r}
+install.packages("XML")
+library("XML")
+```
+
+```{r}
+stats_people_df <- xmlToDataFrame("/Users/priyashrinarendran/Desktop/PRIYA/R_studio/02 codes pack 2/statisticians.xml")
+```
+## Export XML files in R 
+
+```{r}
+bayes_record <- xml_children(stats_people)[[4]]
+xml_remove(bayes_record)
+write_xml(stats_people, "/Users/priyashrinarendran/Desktop/PRIYA/R_studio/02 codes pack 2/statisticians_no_bayes.xml")
+bayes_record
+```
+
+
+
